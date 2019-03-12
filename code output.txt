@@ -1,0 +1,158 @@
+Row3
+ current location: a
+ destination: a
+ passenger: 0
+ current location: a
+ destination: b
+ passenger: 180
+ current location: a
+ destination: c
+ passenger: 178
+ current location: a
+ destination: d
+ passenger: 165
+ current location: a
+ destination: e
+ passenger: 0
+ current location: b
+ destination: a
+ passenger: 0
+ current location: b
+ destination: b
+ passenger: 0
+ current location: b
+ destination: c
+ passenger: 180
+ current location: b
+ destination: d
+ passenger: 148
+ current location: b
+ destination: e
+ passenger: 180
+ current location: c
+ destination: a
+ passenger: 143
+ current location: c
+ destination: b
+ passenger: 110
+ current location: c
+ destination: c
+ passenger: 0
+ current location: c
+ destination: d
+ passenger: 159
+ current location: c
+ destination: e
+ passenger: 180
+ current location: d
+ destination: a
+ passenger: 180
+ current location: d
+ destination: b
+ passenger: 180
+ current location: d
+ destination: c
+ passenger: 180
+ current location: d
+ destination: d
+ passenger: 0
+ current location: d
+ destination: e
+ passenger: 180
+ current location: e
+ destination: a
+ passenger: 180
+ current location: e
+ destination: b
+ passenger: 180
+ current location: e
+ destination: c
+ passenger: 0
+ current location: e
+ destination: d
+ passenger: 180
+ current location: e
+ destination: e
+ passenger: 012
+ current location: a
+ destination: a
+ passenger: 0
+ current location: a
+ destination: b
+ passenger: 180
+ current location: a
+ destination: c
+ passenger: 178
+ current location: a
+ destination: d
+ passenger: 165
+ current location: a
+ destination: e
+ passenger: 0
+ current location: b
+ destination: a
+ passenger: 0
+ current location: b
+ destination: b
+ passenger: 0
+ current location: b
+ destination: c
+ passenger: 180
+ current location: b
+ destination: d
+ passenger: 148
+ current location: b
+ destination: e
+ passenger: 180
+ current location: c
+ destination: a
+ passenger: 143
+ current location: c
+ destination: b
+ passenger: 0
+ current location: c
+ destination: c
+ passenger: 0
+ current location: c
+ destination: d
+ passenger: 159
+ current location: c
+ destination: e
+ passenger: 180
+ current location: d
+ destination: a
+ passenger: 180
+ current location: d
+ destination: b
+ passenger: 180
+ current location: d
+ destination: c
+ passenger: 180
+ current location: d
+ destination: d
+ passenger: 0
+ current location: d
+ destination: e
+ passenger: 180
+ current location: e
+ destination: a
+ passenger: 180
+ current location: e
+ destination: b
+ passenger: 180
+ current location: e
+ destination: c
+ passenger: 0
+ current location: e
+ destination: d
+ passenger: 180
+ current location: e
+ destination: e
+ passenger: 0
+Process returned 0 (0x0)   execution time : 80.318 s
+Press any key to continue.
+
+
+
+
+

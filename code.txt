@@ -1,0 +1,395 @@
+#include<iostream>
+#include<string>
+#include<stdbool.h>
+using namespace std;
+
+struct Airport
+{
+	string name;
+	int mini;
+}Airport[6];
+
+struct flight
+{
+	int code;
+	string current_airport;
+	string destination;
+	int passenger;
+}flight[40];
+
+void printArray(int z[], int size);
+void swap(int* a, int* b);
+void quickSort(int z[], int low, int high);
+int partition (int z[], int low, int high);
+void airportinput(int n);
+void flightinput(int n);
+void print(int n);
+int list[6];
+void minimum(int n);
+void select(int n);
+void calctable(int n);
+void updatep(int n,int sum);
+void update(int n);
+bool peek(int n);
+int main()
+{
+	int n;
+	cout<<"\n Enter the total number of airports: ";
+	cin>>n;
+	cout<<"\n Total number of flights will be "<<n*n-n;
+	airportinput(n);
+	flightinput(n);
+	print(n); 
+	minimum(n);
+	return 0;
+}
+
+void airportinput(int n)
+{
+	for(int i=1;i<=n;i++)
+	{
+		cout<<"\n Enter Airport name: ";
+		cin>>Airport[i].name;
+	}
+}
+
+void flightinput(int n)
+{
+	int x=n*n,i,j,k;
+	for(i=1,k=1,j=1;j<=x;j++,k++)
+	{
+		//cout<<"\n Enter flight code: ";
+		//flight[i].code=j;
+		flight[j].current_airport=Airport[i].name;
+		flight[j].destination=Airport[k].name;
+		if(k==n)
+		{
+			k=0;
+			i++;
+		}
+		if(flight[j].destination==flight[j].current_airport)
+		{
+			flight[j].passenger=0;
+		}
+		else
+		{
+			cout<<"\n Enter total number of passengers: ";
+	    	cin>>flight[j].passenger;
+		}
+	}
+}
+
+void print(int n)
+{
+	int x=n*n;
+	int i;
+	for(i=1;i<=x;i++)
+	{
+		//cout<<"\n code: "<<flight[i].code;
+		cout<<"\n current location: "<<flight[i].current_airport;
+		cout<<"\n destination: "<<flight[i].destination;
+		cout<<"\n passenger: "<<flight[i].passenger;
+	}
+}
+
+
+void minimum(int n)
+{
+	int f=0;
+	int i,j,k;
+	for(i=1,k=1;i<=n;i++,k++)
+	{
+	    Airport[i].mini=135;
+		for(j=1+(i-1)*n;j<1+(i)*n;j++)
+		    {
+			    if(flight[j].passenger!=0)
+		     	{ if(Airport[i].mini>flight[j].passenger && flight[j].passenger<135)
+			        {
+			        	Airport[i].mini=flight[j].passenger;
+			        	list[k]=j;
+			        	f=1;
+	                }
+                }
+            }
+	}
+	if(f==1)
+	{
+	     select(n);
+	}
+	else
+	{
+		print(n);
+	}
+}
+
+int m;
+void select(int n)
+{
+	int i;
+	for(i=1;i<=n;i++)
+	{ 
+	    if(flight[list[i]].passenger !=0)
+	     m=list[i];
+	 }
+	for(i=1;i<=n;i++)
+	{
+		if(flight[m].passenger>flight[list[i]].passenger && flight[list[i]].passenger !=0)
+		{
+			m=list[i];	
+		}
+	}
+	cout<<m;
+	if(peek(n)==false)
+	{
+		flight[m].passenger=0;
+		minimum(n);
+	}
+	else
+	{
+		calctable(n);
+	}
+}
+
+int x=flight[m].passenger;
+int p[4][6-2];
+
+bool peek(int n)
+{
+	int i,k,j,row,col,f=0;
+	int x=n*n;
+	for(i=1;i<=n && f==0;i++)
+	{
+		col=0;
+		for(j=1+(i-1)*n;j<1+(i)*n && f==0;j++)
+		{
+			col++;
+			if(j==m)
+			{
+				row=i;
+				f=1;
+			}
+		}
+	}
+	
+	j=col;
+	for(i=1,k=1;j<=x && i<=n && k<=n-2;i++,j+=n)
+	{
+	    if(j!=i+(i-1)*n && j!=m)
+			{
+				p[1][k]=180-flight[j].passenger;
+				k++;
+			}
+    }
+	j=1+(row-1)*n;
+	for(i=1,k=1;j<1+(row)*n && i<=n && k<=n-2;i++,j++)
+	{
+			if(j!=i+(i-1)*n && j!=m)
+			{
+				p[2][k]=180-flight[j].passenger;
+				k++;
+			}
+	}
+	for(i=1;i<=n-2;i++)
+	{
+		if(p[1][i]>p[2][i])
+		{
+			p[3][i]=p[2][i];
+		}
+		else
+		{
+			p[3][i]=p[1][i];
+		}
+	}
+	int count=0;
+    for(i=1;i<=n-2;i++)
+	{
+		if(p[3][i]==0)
+		{
+			count++;
+		}
+	}
+	if(count==3)
+	{
+		return false;
+	}
+	return true;
+}
+
+void calctable(int n)
+{
+	int i,k,j,row,col,f=0;
+	int x=n*n;
+	for(i=1;i<=n && f==0;i++)
+	{
+		col=0;
+		for(j=1+(i-1)*n;j<1+(i)*n && f==0;j++)
+		{
+			col++;
+			if(j==m)
+			{
+				row=i;
+				f=1;
+			}
+		}
+	}
+	
+	j=col;
+	for(i=1,k=1;j<=x && i<=n && k<=n-2;i++,j+=n)
+	{
+	    if(j!=i+(i-1)*n && j!=m)
+			{
+				p[1][k]=180-flight[j].passenger;
+				k++;
+			}
+    }
+	j=1+(row-1)*n;
+	for(i=1,k=1;j<1+(row)*n && i<=n && k<=n-2;i++,j++)
+	{
+			if(j!=i+(i-1)*n && j!=m)
+			{
+				p[2][k]=180-flight[j].passenger;
+				k++;
+			}
+	}
+	
+	int sum=0;
+	
+	for(i=1;i<=n-2;i++)
+	{
+		if(p[1][i]>p[2][i])
+		{
+			p[3][i]=p[2][i];
+		}
+		else
+		{
+			p[3][i]=p[1][i];
+		}
+	sum+=p[3][i];
+	}
+    for(i=1;i<=3;i++)
+    {
+    	for(j=1;j<=n-2;j++)
+    	{
+    		cout<<endl<<p[i][j];
+		}
+		cout<<endl;
+	}
+	updatep(n,sum);
+}
+int z[4];
+void updatep(int n,int sum)
+{
+    int i,j;
+	x=flight[m].passenger;
+	for(i=1;i<=n-2;i++)
+	{
+		z[i]=p[3][i];
+	}
+    quickSort(z, 1, 3);
+	for(i=1;i<=n-2;i++)
+	{
+			{
+				if(x<=z[i])
+				{
+					z[i]=z[i]-x;
+					x=0;
+				}
+				else
+				{
+					x=x-z[i];
+					z[i]=0;
+					if(x<=0)
+					{
+						x=0;
+					}
+				}
+			}
+		}
+	update(n);
+}
+
+void swap(int* a, int* b)
+{
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int partition (int z[], int low, int high)
+{
+    int pivot = z[high];   
+    int i = (low - 1);  
+ 
+    for (int j = low; j <= high- 1; j++)
+    {
+        if (z[j] <= pivot)
+        {
+            i++;   
+            swap(&z[i], &z[j]);
+        }
+    }
+    swap(&z[i + 1], &z[high]);
+    return (i + 1);
+}
+ 
+void quickSort(int z[], int low, int high)
+{
+    if (low < high)
+    {
+       
+        int pi = partition(z, low, high);
+        quickSort(z, low, pi - 1);
+        quickSort(z, pi + 1, high);
+    }
+}
+
+void printArray(int z[], int size)
+{
+    int i;
+    for (i=1; i <= size; i++)
+    {
+    	cout<<endl<<z[i];
+	}
+}
+
+void update(int n)
+{
+	int i,k,j,row,col,f=0;
+	int x=n*n;
+	for(i=1;i<=n && f==0;i++)
+	{
+		col=0;
+		for(j=1+(i-1)*n;j<1+(i)*n && f==0;j++)
+		{
+			col++;
+			if(j==m)
+			{
+				row=i;
+				f=1;
+			}
+		}
+	}
+	j=col;
+	for(i=1,k=1;j<=x && i<=n && k<=n-2;i++,j+=n)
+	{
+	    if(j!=i+(i-1)*n && j!=m)
+			{
+				flight[j].passenger=flight[j].passenger+p[3][k]-z[k];
+				k++;
+			}
+    }
+	cout<<endl<<"Row"<<row;
+	j=1+(row-1)*n;
+	for(i=1,k=1;j<1+(row)*n && i<=n && k<=n-2;i++,j++)
+	{
+			if(j!=i+(i-1)*n && j!=m)
+			{
+				flight[j].passenger=flight[j].passenger+p[3][k]-z[k];
+				flight[m].passenger=flight[m].passenger-z[k];
+				k++;
+			}
+	}
+		print(n);
+		minimum(n);
+}
+
